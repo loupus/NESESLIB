@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="HeaderOnly">
+      <UniqueIdentifier>{f620cad5-0d01-4fe5-92ca-7bd74773633a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NesesString.hpp" />
+    <ClInclude Include="NesesIO.hpp" />
+    <ClInclude Include="NesesTime.hpp" />
+    <ClInclude Include="BackObject.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="CallBack.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="DbContext.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="DirContext.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="Exporter.h">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueFifo.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueFifoSPSC.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueSlot.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInfo.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="FileList.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="WebContext.hpp" />
+    <ClInclude Include="NesesThread.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigManager.hpp" />
+    <ClInclude Include="App.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueFifoWaitable.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="DirWatcher.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="NesesTask.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskPool.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpContext.hpp">
+      <Filter>HeaderOnly</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpSyncClient.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NesesString.cpp" />
+    <ClCompile Include="NesesIO.cpp" />
+    <ClCompile Include="NesesTime.cpp" />
+    <ClCompile Include="WebContext.cpp" />
+    <ClCompile Include="ConfigManager.cpp" />
+    <ClCompile Include="TcpSyncClient.cpp" />
+  </ItemGroup>
+</Project>

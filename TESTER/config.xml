@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CONFIG>
+  <LOGPATH/>
+  <DATABASES>
+    <DATABASE name="MAESTRODB">
+      <dbServer>GAMORA.SISTEM.TURKMEDYA.LOCAL</dbServer>
+      <dbPort>1433</dbPort>
+      <dbName>maestro_2</dbName>
+      <dbUser>orad</dbUser>
+      <dbPass>orad</dbPass>
+      <dbType>mssql</dbType>
+      <dbIsTrusted>no</dbIsTrusted>
+    </DATABASE>
+    <DATABASE name="CINEGYDB">
+      <dbServer>10.1.100.6</dbServer>
+      <dbPort>1433</dbPort>
+      <dbName>mam14</dbName>
+      <dbUser/>
+      <dbPass/>
+      <!--dbtype none=0, mssql, postgre, oracle, mysql-->
+      <dbType>mssql</dbType>
+      <dbIsTrusted>yes</dbIsTrusted>
+    </DATABASE>
+  </DATABASES>
+</CONFIG>

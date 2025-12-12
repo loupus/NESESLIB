@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{b918bc3e-4fae-4bfb-b976-bf14ec321548}</ProjectGuid>
+    <RootNamespace>NESESLIB</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\debug\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\release\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;NESESLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\DEVLIB\BOOST\boost_1_88_0\;D:\DEVLIB\UTFCPP\UTFCPP-4.0.6;D:\DEVLIB\ZTD\text_0.4.0\_install\debug\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:/DEVLIB/BOOST\boost_1_88_0\bin_x64_static\debug\lib\;D:\DEVLIB\ZTD\text_0.4.0\_install\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ztd.idk.lib;ztd.cuneicode.lib;ztd.encoding_tables.lib;ztd.platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(SolutionDir)\bin\debug\NESESLIB.lib" "$(SolutionDir)\lib\debug\NESESLIB.lib"
+move /Y "$(SolutionDir)\bin\debug\NESESLIB.pdb" "$(SolutionDir)\lib\debug\NESESLIB.pdb"
+move /Y "$(SolutionDir)\bin\debug\NESESLIB.exp" "$(SolutionDir)\lib\Debug\NESESLIB.exp"
+copy /Y "$(SolutionDir)\NESESLIB\Exporter.h" "$(SolutionDir)\include\Neses\Exporter.h"
+copy /Y "$(SolutionDir)\NESESLIB\BackObject.hpp" "$(SolutionDir)\include\Neses\BackObject.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\CallBack.hpp" "$(SolutionDir)\include\Neses\CallBack.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\NesesString.hpp" "$(SolutionDir)\include\Neses\NesesString.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\NesesIO.hpp" "$(SolutionDir)\include\Neses\NesesIO.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\NesesTime.hpp" "$(SolutionDir)\include\Neses\NesesTime.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\NesesThread.hpp" "$(SolutionDir)\include\Neses\NesesThread.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\ThreadManager.hpp" "$(SolutionDir)\include\Neses\ThreadManager.hpp"
+
+copy /Y "$(SolutionDir)\NESESLIB\NesesTask.hpp" "$(SolutionDir)\include\Neses\NesesTask.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\TaskPool.hpp" "$(SolutionDir)\include\Neses\TaskPool.hpp"
+
+copy /Y "$(SolutionDir)\NESESLIB\Timer.hpp" "$(SolutionDir)\include\Neses\Timer.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\ConfigManager.hpp" "$(SolutionDir)\include\Neses\ConfigManager.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\Logger.hpp" "$(SolutionDir)\include\Neses\Logger.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\QueueFifo.hpp" "$(SolutionDir)\include\Neses\QueueFifo.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\QueueFifoSPSC.hpp" "$(SolutionDir)\include\Neses\QueueFifoSPSC.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\QueueFifoWaitable.hpp" "$(SolutionDir)\include\Neses\QueueFifoWaitable.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\QueueSlot.hpp" "$(SolutionDir)\include\Neses\QueueSlot.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\FileInfo.hpp" "$(SolutionDir)\include\Neses\FileInfo.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\FileList.hpp" "$(SolutionDir)\include\Neses\FileList.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\DirContext.hpp" "$(SolutionDir)\include\Neses\DirContext.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\DbContext.hpp" "$(SolutionDir)\include\Neses\DbContext.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\WebContext.hpp" "$(SolutionDir)\include\Neses\WebContext.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\DirWatcher.hpp" "$(SolutionDir)\include\Neses\DirWatcher.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\App.hpp" "$(SolutionDir)\include\Neses\App.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\TcpSyncClient.hpp" "$(SolutionDir)\include\Neses\TcpSyncClient.hpp"
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NESESLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\DEVLIB\BOOST\boost_1_88_0\;D:\DEVLIB\UTFCPP\UTFCPP-4.0.6;D:\DEVLIB\ZTD\text_0.4.0\_install\release\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\DEVLIB\BOOST\boost_1_88_0\bin_x64_static\release\lib\;D:\DEVLIB\ZTD\text_0.4.0\_install\release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ztd.idk.lib;ztd.cuneicode.lib;ztd.encoding_tables.lib;ztd.platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="App.hpp" />
+    <ClInclude Include="BackObject.hpp" />
+    <ClInclude Include="CallBack.hpp" />
+    <ClInclude Include="ConfigManager.hpp" />
+    <ClInclude Include="DbContext.hpp" />
+    <ClInclude Include="DirContext.hpp" />
+    <ClInclude Include="DirWatcher.hpp" />
+    <ClInclude Include="Exporter.h" />
+    <ClInclude Include="FileInfo.hpp" />
+    <ClInclude Include="FileList.hpp" />
+    <ClInclude Include="Globals.hpp" />
+    <ClInclude Include="Logger.hpp" />
+    <ClInclude Include="NesesIO.hpp" />
+    <ClInclude Include="NesesString.hpp" />
+    <ClInclude Include="NesesTask.hpp" />
+    <ClInclude Include="NesesThread.hpp" />
+    <ClInclude Include="NesesTime.hpp" />
+    <ClInclude Include="QueueFifo.hpp" />
+    <ClInclude Include="QueueFifoSPSC.hpp" />
+    <ClInclude Include="QueueFifoWaitable.hpp" />
+    <ClInclude Include="QueueSlot.hpp" />
+    <ClInclude Include="TaskPool.hpp" />
+    <ClInclude Include="TcpContext.hpp" />
+    <ClInclude Include="TcpSyncClient.hpp" />
+    <ClInclude Include="ThreadManager.hpp" />
+    <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="WebContext.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ConfigManager.cpp" />
+    <ClCompile Include="NesesIO.cpp" />
+    <ClCompile Include="NesesString.cpp" />
+    <ClCompile Include="NesesTime.cpp" />
+    <ClCompile Include="TcpSyncClient.cpp" />
+    <ClCompile Include="WebContext.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
