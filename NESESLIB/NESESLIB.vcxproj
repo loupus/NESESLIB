@@ -149,6 +149,7 @@ copy /Y "$(SolutionDir)\NESESLIB\WebContext.hpp" "$(SolutionDir)\include\Neses\W
 copy /Y "$(SolutionDir)\NESESLIB\DirWatcher.hpp" "$(SolutionDir)\include\Neses\DirWatcher.hpp"
 copy /Y "$(SolutionDir)\NESESLIB\App.hpp" "$(SolutionDir)\include\Neses\App.hpp"
 copy /Y "$(SolutionDir)\NESESLIB\TcpSyncClient.hpp" "$(SolutionDir)\include\Neses\TcpSyncClient.hpp"
+copy /Y "$(SolutionDir)\NESESLIB\TcpASyncClient.hpp" "$(SolutionDir)\include\Neses\TcpASyncClient.hpp"
 
 </Command>
     </PostBuildEvent>
@@ -195,6 +196,7 @@ copy /Y "$(SolutionDir)\NESESLIB\TcpSyncClient.hpp" "$(SolutionDir)\include\Nese
     <ClInclude Include="QueueFifoWaitable.hpp" />
     <ClInclude Include="QueueSlot.hpp" />
     <ClInclude Include="TaskPool.hpp" />
+    <ClInclude Include="TcpAsyncClient.hpp" />
     <ClInclude Include="TcpContext.hpp" />
     <ClInclude Include="TcpSyncClient.hpp" />
     <ClInclude Include="ThreadManager.hpp" />
@@ -206,6 +208,7 @@ copy /Y "$(SolutionDir)\NESESLIB\TcpSyncClient.hpp" "$(SolutionDir)\include\Nese
     <ClCompile Include="NesesIO.cpp" />
     <ClCompile Include="NesesString.cpp" />
     <ClCompile Include="NesesTime.cpp" />
+    <ClCompile Include="TcpAsyncClient.cpp" />
     <ClCompile Include="TcpSyncClient.cpp" />
     <ClCompile Include="WebContext.cpp" />
   </ItemGroup>

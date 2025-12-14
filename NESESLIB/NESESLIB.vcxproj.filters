@@ -79,6 +79,7 @@
       <Filter>HeaderOnly</Filter>
     </ClInclude>
     <ClInclude Include="TcpSyncClient.hpp" />
+    <ClInclude Include="TcpAsyncClient.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NesesString.cpp" />
@@ -87,5 +88,6 @@
     <ClCompile Include="WebContext.cpp" />
     <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="TcpSyncClient.cpp" />
+    <ClCompile Include="TcpAsyncClient.cpp" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,12 @@
 #include "TcpSyncClient.hpp"
 #include "boost/asio.hpp"
+#include "TcpAsyncClient.hpp"
 
 struct NESES::TcpSyncClient::TSCImp
 {
 	boost::asio::io_context ioc;
 	boost::asio::ip::tcp::endpoint endpoint;
-	boost::asio::ip::tcp::socket socket;
+	boost::asio::ip::tcp::socket socket_;
 	boost::asio::steady_timer timer;
 	boost::system::error_code ec;
 
@@ -15,7 +16,7 @@ struct NESES::TcpSyncClient::TSCImp
 	//todo move ctor and assignment?
 
 	TSCImp()
-		:socket(ioc), timer(ioc)
+		:socket_(ioc), timer(ioc)
 	{
 
 	}
@@ -105,6 +106,7 @@ void NESES::TcpSyncClient::Set(const TcpClientContext& cc, BackObject& back)
 	readDelim_ = readDelim_;
 }
 
+
 void NESES::TcpSyncClient::Connect(BackObject& back)
 {
 	back.Reset(true);
@@ -128,11 +130,11 @@ void NESES::TcpSyncClient::Connect(BackObject& back)
 		{
 			if (!error)
 			{
-				pimpl->socket.cancel(); // Cancel socket operations if timer expires
+				pimpl->socket_.cancel(); // Cancel socket operations if timer expires
 			}
 		});
 
-	pimpl->socket.connect(pimpl->endpoint, pimpl->ec);
+	pimpl->socket_.connect(pimpl->endpoint, pimpl->ec);
 	pimpl->timer.cancel();
 	if (pimpl->ec)
 	{
@@ -145,10 +147,10 @@ void NESES::TcpSyncClient::Connect(BackObject& back)
 void NESES::TcpSyncClient::DisConnect()
 {
 	pimpl->timer.cancel();
-	if (pimpl->socket.is_open())
+	if (pimpl->socket_.is_open())
 	{
 		boost::system::error_code ec_ignore;
-		pimpl->socket.close(ec_ignore);
+		pimpl->socket_.close(ec_ignore);
 	}
 }
 
@@ -188,16 +190,16 @@ size_t NESES::TcpSyncClient::Send(const std::string& strRequest, std::string& st
 			if (!error)
 			{
 				std::cout << "write timeout" << std::endl;
-				pimpl->socket.cancel();
+				pimpl->socket_.cancel();
 			}
 		});
 
-	bytesSent = boost::asio::write(socket, boost::asio::buffer(strRequest, strRequest.length()), ec);
+	bytesSent = boost::asio::write(pimpl->socket_, boost::asio::buffer(strRequest, strRequest.length()), pimpl->ec);
 	pimpl->timer.cancel();
-	if (ec)
+	if (pimpl->ec)
 	{
 		back.Success = false;
-		back.ErrDesc = "boost::asio::write failed! " + ec.message();
+		back.ErrDesc = "boost::asio::write failed! " + pimpl->ec.message();
 		return bytesReceived;
 	}
 
@@ -208,21 +210,21 @@ size_t NESES::TcpSyncClient::Send(const std::string& strRequest, std::string& st
 			if (!error)
 			{
 				std::cout << "read timeout" << std::endl;
-				pimpl->socket.cancel();
+				pimpl->socket_.cancel();
 			}
 		});
 
 	do
 	{
-		bytesReceived += boost::asio::read_until(socket, recvBuf, readDelim_, ec);
+		bytesReceived += boost::asio::read_until(pimpl->socket_, recvBuf, readDelim_, pimpl->ec);
 		pimpl->timer.cancel();
-		if (ec)
+		if (pimpl->ec)
 		{
 			back.Success = false;
-			if (ec == boost::asio::error::eof)
-				back.ErrDesc = "boost::asio::read eof! " + ec.message();
+			if (pimpl->ec == boost::asio::error::eof)
+				back.ErrDesc = "boost::asio::read eof! " + pimpl->ec.message();
 			else
-				back.ErrDesc = "boost::asio::read failed! " + ec.message();
+				back.ErrDesc = "boost::asio::read failed! " + pimpl->ec.message();
 			return bytesReceived;
 		}
 
@@ -233,12 +235,12 @@ size_t NESES::TcpSyncClient::Send(const std::string& strRequest, std::string& st
 		}
 
 		buffSize = pimpl->ExtractSingleResponse(recvBuf, strResponse, readDelim_);
-		bytes_readable = pimpl->socket.available(ec);
+		bytes_readable = pimpl->socket_.available(pimpl->ec);
 	} while (buffSize > 0 || bytes_readable > 0);
 	return bytesReceived;
 }
 
 bool NESES::TcpSyncClient::IsOpen() const
 {
-	return pimpl->socket.is_open();
+	return pimpl->socket_.is_open();
 }
