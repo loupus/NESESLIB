@@ -5,8 +5,6 @@
 #include "boost/lexical_cast.hpp"		//boost::lexical_cast
 #include "boost/algorithm/string.hpp"	//boost::algorithm::split
 #include "boost/locale.hpp"
-//#include "ztd/text.hpp"				// patlak
-#include "utf8.h"
 
 NESESAPI std::string NESES::StringUtil::NewGuid()
 {
@@ -16,40 +14,18 @@ NESESAPI std::string NESES::StringUtil::NewGuid()
 
 NESESAPI std::string NESES::StringUtil::GetLocaleName(cEncoding enc)
 {
-	std::string back("");
 	switch (enc)
 	{
-	case cEncoding::e_win_1251:
-	case cEncoding::e_iso_8859_1:
-	{
-		back = "en_US.ISO-8859-1";
-		break;
+	case cEncoding::e_win_1251:   return "ru_RU.CP1251";          // Windows-1251 (Cyrillic)
+	case cEncoding::e_win_1252:   return "en_US.CP1252";         // Windows-1252 (Western Latin)
+	case cEncoding::e_win_1254:   return "tr_TR.CP1254";         // Windows-1254 (Turkish)
+	case cEncoding::e_iso_8859_1: return "en_US.ISO-8859-1";    // Latin-1
+	case cEncoding::e_iso_8859_2: return "pl_PL.ISO-8859-2";    // Central European (example country)
+	case cEncoding::e_iso_8859_9: return "tr_TR.ISO-8859-9";    // Latin-5 (Turkish)
+	case cEncoding::e_en_utf8:    return "en_US.UTF-8";
+	case cEncoding::e_tr_utf8:    return "tr_TR.UTF-8";
+	default:                      return "en_US.UTF-8";
 	}
-	case cEncoding::e_win_1252:
-	case cEncoding::e_iso_8859_2:
-	{
-		back = "en_US.ISO-8859-2";
-		break;
-	}
-	case cEncoding::e_win_1254:
-	{
-		back = "tr_TR.ISO-8859-9";
-		break;
-	}
-	case cEncoding::e_en_utf8:
-	{
-		back = "en_US.UTF-8";
-		break;
-	}
-	case cEncoding::e_tr_utf8:
-	default:
-	{
-		back = "tr_TR.UTF-8";
-		break;
-	}
-	}
-
-	return back;
 }
 
 NESESAPI std::locale NESES::StringUtil::GetLocale(cEncoding enc)
@@ -59,8 +35,7 @@ NESESAPI std::locale NESES::StringUtil::GetLocale(cEncoding enc)
 
 NESESAPI std::string NESES::StringUtil::ToUtf8(const std::string& str, cEncoding srcEncoding, BackObject& backobj)
 {
-	std::string back;
-
+	std::string back;	
 
 	if (str.empty())
 	{
@@ -69,143 +44,16 @@ NESESAPI std::string NESES::StringUtil::ToUtf8(const std::string& str, cEncoding
 		return back;
 	}
 
-	switch (srcEncoding)
+	std::string localname = StringUtil::GetLocaleName(srcEncoding);
+	try
 	{
-	case cEncoding::e_win_1251:
-	{
-		try
-		{
-			back = boost::locale::conv::to_utf<char>(str, "Windows-1251");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		
-
-
-		break;
+		back = boost::locale::conv::to_utf<char>(str, localname);
 	}
-	case cEncoding::e_win_1252:
-	{
-
-		try
-		{
-			back = boost::locale::conv::to_utf<char>(str, "Windows-1252");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-
-		//auto res = ztd::text::transcode_to(str, ztd::text::windows_1252, ztd::text::compat_utf8);
-		//if (res.error_code == ztd::text::encoding_error::ok)
-		//	back = res.output;
-		//else
-		//{
-		//	backobj.Success = false;
-		//	backobj.ErrDesc = ztd::text::to_name(res.error_code);
-		//}
-		break;
-	}
-	case cEncoding::e_win_1254:
-	{
-
-		try
-		{
-			back = boost::locale::conv::to_utf<char>(str, "Windows-1254");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		//auto res = ztd::text::transcode_to(str, ztd::text::windows_1254, ztd::text::compat_utf8);
-		//if (res.error_code == ztd::text::encoding_error::ok)
-		//	back = res.output;
-		//else
-		//{
-		//	backobj.Success = false;
-		//	backobj.ErrDesc = ztd::text::to_name(res.error_code);
-		//}
-		break;
-	}
-	case cEncoding::e_iso_8859_1:
-	{
-		try
-		{
-			back = boost::locale::conv::to_utf<char>(str, "ISO-8859-1");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-
-		//auto res = ztd::text::transcode_to(str, ztd::text::iso_8859_1, ztd::text::compat_utf8);
-		//if (res.error_code == ztd::text::encoding_error::ok)
-		//	back = res.output;
-		//else
-		//{
-		//	backobj.Success = false;
-		//	backobj.ErrDesc = ztd::text::to_name(res.error_code);
-		//}
-		break;
-	}
-	case cEncoding::e_iso_8859_2:
-	{
-
-		try
-		{
-			back = boost::locale::conv::to_utf<char>(str, "ISO-8859-2");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		//auto res = ztd::text::transcode_to(str, ztd::text::iso_8859_2, ztd::text::compat_utf8);
-		//if (res.error_code == ztd::text::encoding_error::ok)
-		//	back = res.output;
-		//else
-		//{
-		//	backobj.Success = false;
-		//	backobj.ErrDesc = ztd::text::to_name(res.error_code);
-		//}
-		break;
-	}
-
-	case cEncoding::e_iso_8859_9:
-	{
-
-		try
-		{
-			back = boost::locale::conv::to_utf<char>(str, "ISO-8859-9");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		//auto res = ztd::text::transcode_to(str, ztd::text::iso_8859_2, ztd::text::compat_utf8);
-		//if (res.error_code == ztd::text::encoding_error::ok)
-		//	back = res.output;
-		//else
-		//{
-		//	backobj.Success = false;
-		//	backobj.ErrDesc = ztd::text::to_name(res.error_code);
-		//}
-		break;
-	}
-	default:
+	catch (const std::exception& ex)
 	{
 		backobj.Success = false;
-		backobj.ErrDesc = "invalid source encoding";
+		backobj.ErrDesc = ex.what();
 	}
-	}
-
 
 	return back;
 }
@@ -221,163 +69,16 @@ NESESAPI std::string NESES::StringUtil::FromUtf8(const std::string& str, cEncodi
 		return back;
 	}
 
-	switch (destEncoding)
+	std::string localname = StringUtil::GetLocaleName(destEncoding);
+	try
 	{
-	case cEncoding::e_win_1251:
-	{
-		try
-		{
-			back = boost::locale::conv::from_utf<char>(str, "Windows-1251");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		break;
+		back = boost::locale::conv::from_utf<char>(str, localname);
 	}
-	case cEncoding::e_win_1252:
-	{
-		try
-		{
-			back = boost::locale::conv::from_utf<char>(str, "Windows-1252");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		break;
-	}
-	case cEncoding::e_win_1254:
-	{
-		try
-		{
-			back = boost::locale::conv::from_utf<char>(str, "Windows-1254");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		break;
-	}
-	case cEncoding::e_iso_8859_1:
-	{
-		try
-		{
-			back = boost::locale::conv::from_utf<char>(str, "ISO-8859-1");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		break;
-	}
-	case cEncoding::e_iso_8859_2:
-	{
-		try
-		{
-			back = boost::locale::conv::from_utf<char>(str, "ISO-8859-2");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		break;
-	}
-	case cEncoding::e_iso_8859_9:
-	{
-		try
-		{
-			back = boost::locale::conv::from_utf<char>(str, "ISO-8859-9");
-		}
-		catch (const std::exception& ex)
-		{
-			backobj.Success = false;
-			backobj.ErrDesc = ex.what();
-		}
-		break;
-	}
-	default:
+	catch (const std::exception& ex)
 	{
 		backobj.Success = false;
-		backobj.ErrDesc = "invalid source encoding";
+		backobj.ErrDesc = ex.what();
 	}
-	}
-
-
-
-	//switch (destEncoding)
-	//{
-	//case cEncoding::e_win_1251:
-	//{
-	//	auto res = ztd::text::transcode_to(str, ztd::text::compat_utf8, ztd::text::windows_1251, ztd::text::replacement_handler);
-	//	if (res.error_code == ztd::text::encoding_error::ok)
-	//		back = res.output;
-	//	else
-	//	{
-	//		backobj.Success = false;
-	//		backobj.ErrDesc = ztd::text::to_name(res.error_code);
-	//	}
-	//	break;
-	//}
-	//case cEncoding::e_win_1252:
-	//{
-	//	auto res = ztd::text::transcode_to(str, ztd::text::compat_utf8, ztd::text::windows_1252, ztd::text::replacement_handler);
-	//	if (res.error_code == ztd::text::encoding_error::ok)
-	//		back = res.output;
-	//	else
-	//	{
-	//		backobj.Success = false;
-	//		backobj.ErrDesc = ztd::text::to_name(res.error_code);
-	//	}
-	//	break;
-	//}
-	//case cEncoding::e_win_1254:
-	//{
-	//	auto res = ztd::text::transcode_to(str, ztd::text::compat_utf8, ztd::text::windows_1254, ztd::text::replacement_handler);
-	//	if (res.error_code == ztd::text::encoding_error::ok)
-	//		back = res.output;
-	//	else
-	//	{
-	//		backobj.Success = false;
-	//		backobj.ErrDesc = ztd::text::to_name(res.error_code);
-	//	}
-	//	break;
-	//}
-	//case cEncoding::e_iso_8859_1:
-	//{
-	//	auto res = ztd::text::transcode_to(str, ztd::text::compat_utf8, ztd::text::iso_8859_1, ztd::text::replacement_handler);
-	//	if (res.error_code == ztd::text::encoding_error::ok)
-	//		back = res.output;
-	//	else
-	//	{
-	//		backobj.Success = false;
-	//		backobj.ErrDesc = ztd::text::to_name(res.error_code);
-	//	}
-	//	break;
-	//}
-	//case cEncoding::e_iso_8859_2:
-	//{
-	//	auto res = ztd::text::transcode_to(str, ztd::text::compat_utf8, ztd::text::iso_8859_2, ztd::text::replacement_handler);
-	//	if (res.error_code == ztd::text::encoding_error::ok)
-	//		back = res.output;
-	//	else
-	//	{
-	//		backobj.Success = false;
-	//		backobj.ErrDesc = ztd::text::to_name(res.error_code);
-	//	}
-	//	break;
-	//}
-	//default:
-	//{
-	//	backobj.Success = false;
-	//	backobj.ErrDesc = "invalid source encoding";
-	//}
-	//}
 
 	return back;
 }
@@ -387,7 +88,15 @@ NESESAPI std::string NESES::StringUtil::ToUpper(const std::string& str, std::loc
 	std::string back;
 	if (!str.empty())
 	{
-		back = boost::algorithm::to_upper_copy(str, local);
+		try
+		{
+			back = boost::locale::to_upper(str, local);
+		}
+		catch (...)
+		{
+
+		}
+		
 	}
 	return back;
 }
@@ -397,7 +106,15 @@ NESESAPI std::string NESES::StringUtil::ToLower(const std::string& str, std::loc
 	std::string back;
 	if (!str.empty())
 	{
-		back = boost::algorithm::to_lower_copy(str, local);
+		try
+		{
+			back = boost::locale::to_lower(str, local);
+		}
+		catch (...)
+		{
+
+		}
+
 	}
 	return back;
 }
@@ -450,33 +167,76 @@ NESESAPI void NESES::StringUtil::AddTrailingSlash(std::string& str)
 		str += '\\';
 }
 
-NESESAPI size_t NESES::StringUtil::GetCharLen(const std::string& str)
-{
-	// bool is_valid = utf8::is_valid(utf8str.begin(), utf8str.end());
-	// utf8::distance(x.begin(), x.end());  // returns 1
-	std::size_t back = 0;
-	if (str.empty()) return back;
-	auto it = str.begin();
-	auto end = str.end();
-
-	while (it != end)
-	{
-		try {
-			utf8::next(it, end);
-			++back;
-		}
-		catch (const utf8::invalid_utf8&) 
-		{
-			// handle error
-		//	++it; // skip invalid byte
-			back = -1;
-			break;
-		}
-	}
-	return back;
-}
-
 NESESAPI bool NESES::StringUtil::IsValidUtf8(const std::string& str)
 {
-	return utf8::is_valid(str.begin(), str.end());
+	const unsigned char* bytes = reinterpret_cast<const unsigned char*>(str.data());
+	std::size_t len = str.size();
+	std::size_t i = 0;
+
+	while (i < len)
+	{
+		unsigned char c = bytes[i];
+		if (c <= 0x7F) // ASCII
+		{
+			++i;
+			continue;
+		}
+
+		std::size_t remaining = 0;
+		if ((c & 0xE0) == 0xC0) remaining = 1;       // 110xxxxx
+		else if ((c & 0xF0) == 0xE0) remaining = 2;  // 1110xxxx
+		else if ((c & 0xF8) == 0xF0) remaining = 3;  // 11110xxx
+		else return false; // invalid leading byte
+
+		if (i + remaining >= len) return false; // truncated sequence
+
+		// continuation bytes must be 10xxxxxx
+		for (std::size_t j = 1; j <= remaining; ++j)
+			if ((bytes[i + j] & 0xC0) != 0x80) return false;
+
+		// Note: this basic validator does not reject all overlong encodings or codepoints > U+10FFFF.
+		// If you need stricter validation, add overlong / surrogate / range checks here.
+
+		i += remaining + 1;
+	}
+
+	return true;
 }
+
+NESESAPI std::size_t NESES::StringUtil::GraphClusterLen(const std::string& str, std::locale local)
+{
+	if (str.empty()) return 0;
+
+	// validate UTF-8 first (optional but helps return -1 on invalid input)
+	if (!IsValidUtf8(str)) return static_cast<std::size_t>(-1);
+
+	try
+	{
+		using boost::locale::boundary::ssegment_index;
+		ssegment_index segments(boost::locale::boundary::character, str.begin(), str.end(), local);
+		return static_cast<std::size_t>(std::distance(segments.begin(), segments.end()));
+	}
+	catch (...)
+	{
+		// follow existing convention: return -1 cast to size_t on error
+		return static_cast<std::size_t>(-1);
+	}
+}
+
+NESESAPI std::size_t NESES::StringUtil::CodePointLen(const std::string& str)
+{
+	if (str.empty()) return 0;
+
+	try
+	{
+		// Convert UTF-8 to UTF-32 (each char32_t is one Unicode code point)
+		auto u32 = boost::locale::conv::utf_to_utf<char32_t>(str);
+		return u32.size();
+	}
+	catch (const std::exception&)
+	{
+		// follow the project's convention: return -1 cast to size_t on error
+		return static_cast<std::size_t>(-1);
+	}
+}
+

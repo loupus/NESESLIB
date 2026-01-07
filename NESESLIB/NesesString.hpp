@@ -33,10 +33,19 @@ namespace NESES
 		NESESAPI float ParseFloat(const std::string& str, float replaceVal = 0.0f);
 		NESESAPI std::string Trim(const std::string& str);
 		NESESAPI void AddTrailingSlash(std::string& str);
-		NESESAPI size_t GetCharLen(const std::string& str);
 		NESESAPI bool IsValidUtf8(const std::string& str);
+
+
+
+		// get the grapheme cluster count in given local
+		NESESAPI std::size_t GraphClusterLen(const std::string& str, std::locale local);
+
+		// get utf8 codepoint count
+		NESESAPI std::size_t CodePointLen(const std::string& str);
 
 	}
 }
+
+
 
 
